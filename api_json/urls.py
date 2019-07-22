@@ -20,6 +20,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^students/',views.StudentsList.as_view()),
+    url(r'^students/',views.TimelineViewSet.as_view()),
 
 ]

@@ -8,15 +8,22 @@ from rest_framework import status
 from . models import Students
 from . serializers import StudentsSerializer
 from django.http import HttpResponse
+from rest_framework import viewsets
+
+from collections import namedtuple
+Timeline = namedtuple('Timeline', ('tweets', 'articles'))
 
 
 # Create your views here.
-class StudentsList(APIView):
-
-
-    def get(self,request):
-        students1 = Students.objects.all()
-        serializer = StudentsSerializer(students1,many = True)
-    
+class TimelineViewSet(APIView):
+    """
+    A simple ViewSet for listing the Students and Employees in your Timeline.
+    """
+    def list(self, request):
+        timeline = Timeline(
+            students = Students.objects.all(),
+            employess = Employess.objects.all(),
+        )
+        serializer = CombinedSerializer(timeline)
         return Response(serializer.data)
 
